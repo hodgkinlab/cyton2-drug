@@ -96,7 +96,7 @@ class Cyton2Model:
 		cdef np.ndarray[DTYPE_t, ndim=1] low_cdfDiv
 		cdef np.ndarray[DTYPE_t, ndim=1] difference
 		for igen in range(1, self.max_div+1):
-			core = <DTYPE_t>(2.**igen * self.n0 * p)
+			core = <DTYPE_t>(2.**igen * self.n0)
 
 			upp_cdfDiv = self.compute_cdf(times - <DTYPE_t>((igen - 1.)*m), mDiv0, sDiv0)
 			low_cdfDiv = self.compute_cdf(times - <DTYPE_t>(igen*m), mDiv0, sDiv0)
@@ -131,7 +131,7 @@ class Cyton2Model:
 		cdef DTYPE_t mDie = params['mDie']
 		cdef DTYPE_t sDie = params['sDie']
 		
-		# Subsequent division time & cell fraction parameters
+		# Subsequent division time
 		cdef DTYPE_t m = params['m']
 
 		cdef unsigned int n = model_times.size
@@ -168,7 +168,7 @@ class Cyton2Model:
 		cdef DTYPE_t core
 		cdef unsigned int igen
 		for igen in range(1, self.max_div+1):
-			core = <DTYPE_t>(2.**igen * self.n0 * p)
+			core = <DTYPE_t>(2.**igen * self.n0)
 
 			upp_cdfDiv = self.compute_cdf(model_times - <DTYPE_t>((igen - 1.)*m), mDiv0, sDiv0)
 			low_cdfDiv = self.compute_cdf(model_times - <DTYPE_t>(igen*m), mDiv0, sDiv0)
