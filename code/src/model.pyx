@@ -68,7 +68,7 @@ class Cyton2Model:
 				 DTYPE_t mDiv0, DTYPE_t sDiv0,  # time to first division
 				 DTYPE_t mDD, DTYPE_t sDD,      # division destiny
 				 DTYPE_t mDie, DTYPE_t sDie,    # stimulated death
-				 DTYPE_t m):         			# subsequent division time
+				 DTYPE_t b):         			# subsequent division time
 		cdef np.ndarray[DTYPE_t, ndim=1] times
 		times = self.times
 
@@ -98,8 +98,8 @@ class Cyton2Model:
 		for igen in range(1, self.max_div+1):
 			core = <DTYPE_t>(2.**igen * self.n0)
 
-			upp_cdfDiv = self.compute_cdf(times - <DTYPE_t>((igen - 1.)*m), mDiv0, sDiv0)
-			low_cdfDiv = self.compute_cdf(times - <DTYPE_t>(igen*m), mDiv0, sDiv0)
+			upp_cdfDiv = self.compute_cdf(times - <DTYPE_t>((igen - 1.)*b), mDiv0, sDiv0)
+			low_cdfDiv = self.compute_cdf(times - <DTYPE_t>(igen*b), mDiv0, sDiv0)
 			difference = upp_cdfDiv - low_cdfDiv
 
 			nDIV[igen,:] = core * sfDie * sfDD * difference
@@ -132,7 +132,7 @@ class Cyton2Model:
 		cdef DTYPE_t sDie = params['sDie']
 		
 		# Subsequent division time
-		cdef DTYPE_t m = params['m']
+		cdef DTYPE_t b = params['b']
 
 		cdef unsigned int n = model_times.size
 
@@ -170,8 +170,8 @@ class Cyton2Model:
 		for igen in range(1, self.max_div+1):
 			core = <DTYPE_t>(2.**igen * self.n0)
 
-			upp_cdfDiv = self.compute_cdf(model_times - <DTYPE_t>((igen - 1.)*m), mDiv0, sDiv0)
-			low_cdfDiv = self.compute_cdf(model_times - <DTYPE_t>(igen*m), mDiv0, sDiv0)
+			upp_cdfDiv = self.compute_cdf(model_times - <DTYPE_t>((igen - 1.)*b), mDiv0, sDiv0)
+			low_cdfDiv = self.compute_cdf(model_times - <DTYPE_t>(igen*b), mDiv0, sDiv0)
 			difference = upp_cdfDiv - low_cdfDiv
 
 			nDIV[igen,:] = core * sfDie * sfDD * difference
