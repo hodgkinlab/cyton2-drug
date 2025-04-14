@@ -275,7 +275,7 @@ def fit(inputs):
 			'mDiv0': 1E-2, 'sDiv0': 1E-2,
 			'mDD': 1E-2, 'sDD': 1E-2,
 			'mDie': 1E-2, 'sDie': 1E-2,
-			'b': 0
+			'b': 5
 		},
 		'ub': {  # Upper bounds
 			'mDiv0': 100, 'sDiv0': 50,
@@ -604,7 +604,7 @@ def fit(inputs):
 	xlabs = [r"median ($m_{div}^0$)", r"log-variance ($s_{div}^0$)", 
 						r"median ($m_{dd}$)", r"log-variance ($s_{dd}$)", 
 						r"median ($m_{die}$)", r"log-variance ($s_{die}$)", 
-						r"$b$ (hour)", r"$f_A$ (Proportion)",
+						r"$b$ (hour)", r"$1-pl$ (Proportion)",
 						r"$N_0 (Cells)$", r"$N_1$ (Cells)"]
 	colors = ['blue', 'blue', 'green', 'green', 'red', 'red', 'navy', 'k', 'grey', 'grey']
 	fig3, ax3 = plt.subplots(nrows=5, ncols=2, figsize=(9, 8))
@@ -751,9 +751,11 @@ if __name__ == "__main__":
 	for key in KEYS:
 		reader = df[key]['reader']
 		for icnd, cond in enumerate(reader.condition_names):
+			if cond == 'US' or cond == 'unstimulated':
+				pass
 			inputs.append((key, df[key], reader, icnd, pos))
 			pos += 1
-			
+
 	tqdm.tqdm.set_lock(mp.RLock())  # for managing output contention
 	p = mp.Pool(initializer=tqdm.tqdm.set_lock, initargs=(tqdm.tqdm.get_lock(),))
 	with tqdm.tqdm(total=len(inputs), desc="Data Files", position=0) as pbar:
