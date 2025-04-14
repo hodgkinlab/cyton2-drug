@@ -6,22 +6,22 @@ OT-I/Bcl2l11$^{-/-}$ CD8$^+$ T cells
 
 ```bash
 root
-├── requirements.txt  # List of dependencies
-├── fit-*.py          # Scripts for fitting Cyton2 model
-├── pred-*.ipynb      # Jupyter notebooks to generate predictions
-└── code
-     ├── data
-     ├── src
-     └── out
-          ├── Best-fit Parameters
-          │    ├── 1. Single Drugs
-          │    ├── 2. Different Timers
-          │    ├── 3. Same Timer
-          │    └── 4. Complex Interaction
-          └── Predictions
-               ├── 1. Different Timers
-               ├── 2. Same Timer
-               └── 3. Complex Interaction
+ ├── requirements.txt   # List of dependencies
+ └── code
+      ├── fit-*.py      # Main Python scripts for fitting Cyton2 model
+      ├── pred-*.ipynb  # Example Jupyter notebooks to generate predictions
+      ├── data          # FACS data in Excel format
+      ├── src           # Cyton code for Cyton2 algorithm & other custom functions to import data and process modelling results
+      └── out
+           ├── Best-fit Parameters
+           │    ├── 1. Single Drugs
+           │    ├── 2. Different Timers
+           │    ├── 3. Same Timer
+           │    └── 4. Complex Interaction
+           └── Predictions
+                ├── 1. Different Timers
+                ├── 2. Same Timer
+                └── 3. Complex Interaction
 ```
 
 Install dependencies:
