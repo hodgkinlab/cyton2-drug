@@ -761,7 +761,7 @@ if __name__ == "__main__":
 		reader = df[key]['reader']
 		for icnd, cond in enumerate(reader.condition_names):
 			if cond == 'US' or cond == 'unstimulated':
-				pass
+				continue
 			inputs.append((key, df[key], reader, icnd, pos))
 			pos += 1
 
