@@ -1,7 +1,11 @@
-# Effect of drugs in murine cells
-OT-I/Bcl2l11$^{-/-} CD8$^+$ T cells
+# Effect of Drugs in Murine Cells
+$\text{OT-I/Bcl2l11}^{-/-} \text{ CD8}^+$ T cells were stimulated with the following drugs, either individually or in combination:
+- Rapamycin (Rapa)
+- Mycophenolic Acid (MPA)
+- Dexamethasone (Dex)
+- Cyclosporine A (CsA)
 
-# File structure
+# File Structure
 ```bash
 root
  ├── requirements.txt   # List of dependencies
@@ -21,34 +25,40 @@ root
                 ├── 2. Same Timer
                 └── 3. Complex Interaction
 ```
-Python v3.13.2
+Python version: 3.13.2
 
-Install dependencies:
+# Installation
+To install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Prior to running the python scripts to fit the Cyton2 model, run the following commands to compile the Cython code:
+Before running the python scripts to fit the Cyton2 model, compile the Cython code by executing:
 
 ```bash
 cd code/src
 python _setup.py build_ext --inplace
 ```
 
-There are four versions of the model fitting scripts, corresponding to the following cases:
+# Model Fitting Scripts
+There are four versions of the model fitting scripts, corresponding to the following experimental cases:
 
 1. `fit-SingleDrugs.py`
 2. `fit-DiffTimer.py`
 3. `fit-SameTimer.py`
 4. `fit-ComplexInter.py`
 
-Each script automatically imports the relevant data files and initiates fitting procedure using predefined configurations. It enumerates all conditions (i.e. drug concentrations) provided in each dataset and utilises `multiprocessing` to fit them in parallel. By default, the script will generate two Excel files-one containing model outputs for direct plotting in external software, and another with a table of fitted parameters-and one PDF file containing summary plots to quickly evaluate the modelling results.
+Each script automatically imports the relevant dataset(s) and initiates fitting procedure using predefined configurations. It enumerates all experimental conditions (i.e. drug concentrations) within each dataset and utilises `multiprocessing` module to fit them in parallel. 
 
-The exact modelling results presented in the paper are provided in the `out/Best-fit Parameters` folder.
+By default, each script generates:
+- Two Excel files - one containing model outputs for direct plotting in external software, and another containing a table of fitted parameters.
+- One PDF file with summary plots for quick evaluation of the modelling results.
 
-# Predicting the combined effect of drugs
-There are three example Jupyter notebooks that read the modelling results from the `out/Best-fit Parameters` folder and generate predictions for the following scenarios: 
+The exact modelling results presented in the paper are located in the `out/Best-fit Parameters` directory.
+
+# Predicting the Combined Effect of Drugs
+Three example Jupyter notebooks demonstrate how to read the modelling results from the `out/Best-fit Parameters` directory and generate predictions for the following scenarios:
 
 1. **Different timers** - e.g., division timers from Rapamycin and time to death from Dexamethasone
 2. **Same timers** - e.g., division timers from Rapamycin and Mycophenolic Acid
