@@ -1,9 +1,7 @@
 # Effect of drugs in murine cells
-
-OT-I/Bcl2l11$^{-/-}$ CD8$^+$ T cells
+OT-I/Bcl2l11$^{-/-} CD8$^+$ T cells
 
 # File structure
-
 ```bash
 root
  ├── requirements.txt   # List of dependencies
@@ -11,7 +9,7 @@ root
       ├── fit-*.py      # Main Python scripts for fitting Cyton2 model
       ├── pred-*.ipynb  # Example Jupyter notebooks to generate predictions
       ├── data          # FACS data in Excel format
-      ├── src           # Cyton code for Cyton2 algorithm & other custom functions to import data and process modelling results
+      ├── src           # Cython code for Cyton2 algorithm & other custom functions to import data and process modelling results
       └── out
            ├── Best-fit Parameters
            │    ├── 1. Single Drugs
@@ -23,6 +21,7 @@ root
                 ├── 2. Same Timer
                 └── 3. Complex Interaction
 ```
+Python v3.13.2
 
 Install dependencies:
 
@@ -49,7 +48,6 @@ Each script automatically imports the relevant data files and initiates fitting 
 The exact modelling results presented in the paper are provided in the `out/Best-fit Parameters` folder.
 
 # Predicting the combined effect of drugs
-
 There are three example Jupyter notebooks that read the modelling results from the `out/Best-fit Parameters` folder and generate predictions for the following scenarios: 
 
 1. **Different timers** - e.g., division timers from Rapamycin and time to death from Dexamethasone
