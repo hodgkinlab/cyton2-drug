@@ -9,8 +9,8 @@ def norm_cdf(x, mu, sig):
 
 def conf_iterval(l, rgs):
 	alpha = (100. - rgs)/2.
-	low = np.percentile(l, alpha, interpolation='nearest', axis=0)
-	high = np.percentile(l, rgs+alpha, interpolation='nearest', axis=0)
+	low = np.percentile(l, alpha, method='nearest', axis=0)
+	high = np.percentile(l, rgs+alpha, method='nearest', axis=0)
 	return (low, high)
 
 def remove_empty(l):
