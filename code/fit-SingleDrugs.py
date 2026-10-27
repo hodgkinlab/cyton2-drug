@@ -290,7 +290,7 @@ def fit(inputs):
 		'mDie': False, 'sDie': False,
 		'b': True
 	}
-	
+
 	a2_params = lmf.Parameters()
 	# LMFIT add parameter properties with tuples: (NAME, VALUE, VARY, MIN, MAX, EXPR, BRUTE_STEP)
 	for par in pars:
@@ -418,9 +418,9 @@ def fit(inputs):
 		data={"best-fit": [mDiv0, sDiv0, mDD, sDD, mDie, sDie, b, N0, N1, c1, oneMinusPL],
 			"low95": [mDiv0-err_mDiv0[0], sDiv0-err_sDiv0[0], mDD-err_mDD[0], sDD-err_sDD[0], mDie-err_mDie[0], sDie-err_sDie[0], b-err_b[0], N0-err_N0[0], N1-err_N1[0], c1-err_c1[0], oneMinusPL-err_oneMinusPL[0]],
 			"high95": [err_mDiv0[1]-mDiv0, err_sDiv0[1]-sDiv0, err_mDD[1]-mDD, err_sDD[1]-sDD, err_mDie[1]-mDie, err_sDie[1]-sDie, err_b[1]-b, err_N0[1]-N0, err_N1[1]-N1, err_c1[1]-c1, err_oneMinusPL[1]-oneMinusPL],
-			"vary": np.append([a2_params[p].vary for p in a2_params], ["False", "False", "False", "False"])}, 
-		index=["mDiv0", "sDiv0", "mDD", "sDD", "mDie", "sDie", "b", "N0", "N1", "c1", "1-pl"]) 
-	
+			"vary": np.append([a2_params[p].vary for p in a2_params], ["False", "False", "False", "False"])},
+		index=["mDiv0", "sDiv0", "mDD", "sDD", "mDie", "sDie", "b", "N0", "N1", "c1", "1-pl"])
+
 	excel_path = f"./out/{key}_{condition}_result.xlsx"
 	if os.path.isfile(excel_path):
 		with pd.ExcelWriter(excel_path, engine='openpyxl', mode='a') as writer:
@@ -597,13 +597,13 @@ def fit(inputs):
 	fig2.subplots_adjust(wspace=0.05, hspace=0.15)
 
 
-	### FIG 3: DISTRIBUTION OF BOOTSTRAP SAMPLES 
+	### FIG 3: DISTRIBUTION OF BOOTSTRAP SAMPLES
 	alpha = (1. - RGS/100.)/2
 	quantiles = boots[['mDiv0', 'sDiv0', 'mDD', 'sDD', 'mDie', 'sDie', 'b', '1-pl', 'N0', 'N1']].quantile([alpha, alpha + RGS/100.], numeric_only=True, interpolation='nearest')
-	
-	xlabs = [r"median ($m_{div}^0$)", r"log-variance ($s_{div}^0$)", 
-						r"median ($m_{dd}$)", r"log-variance ($s_{dd}$)", 
-						r"median ($m_{die}$)", r"log-variance ($s_{die}$)", 
+
+	xlabs = [r"median ($m_{div}^0$)", r"log-variance ($s_{div}^0$)",
+						r"median ($m_{dd}$)", r"log-variance ($s_{dd}$)",
+						r"median ($m_{die}$)", r"log-variance ($s_{die}$)",
 						r"$b$ (hour)", r"$1-pl$ (Proportion)",
 						r"$N_0 (Cells)$", r"$N_1$ (Cells)"]
 	colors = ['blue', 'blue', 'green', 'green', 'red', 'red', 'navy', 'k', 'grey', 'grey']
@@ -674,7 +674,7 @@ def fit(inputs):
 		dfModelCells[f'Gen{igen}'] = ext_cells_per_gen[igen]
 		dfModelCells[f'Gen{igen} (low95)'] = conf['ext_cells_per_gen'][0][igen]
 		dfModelCells[f'Gen{igen} (upp95)'] = conf['ext_cells_per_gen'][1][igen]
-	
+
 	dfModelCellsGen = pd.DataFrame({
 		'Gens': gens
 	})
@@ -710,26 +710,19 @@ def auto_adjust_xlsx_column_width(df, writer, sheet_name, margin=0, length_facto
 		Like str() but rounds decimals to predefined length
 		"""
 		if isinstance(v, float):
-			# Round to [decimal] places
 			return str(Decimal(v).quantize(Decimal('1.' + '0' * decimals)).normalize())
 		else:
 			return str(v)
-	
+
 	sheet = writer.sheets[sheet_name]
 	_to_str = functools.partial(_to_str_for_length, decimals=decimals)
-	# Compute & set column width for each column
 	for column_name in df.columns:
-		# Convert the value of the columns to string and select the 
 		column_length = max(df[column_name].apply(_to_str).map(text_length).max(), text_length(column_name)) + 5
-		# Get index of column in XLSX
-		# Column index is +1 if we also export the index column
 		col_idx = df.columns.get_loc(column_name)
 		if index:
 			col_idx += 1
-		# Set width of column to (column_length + margin)
 		sheet.column_dimensions[openpyxl.utils.cell.get_column_letter(col_idx+1)].width = column_length * length_factor + margin
-	# Compute column width of index column (if enabled)
-	if index: # If the index column is being exported
+	if index:
 		index_length =  max(df.index.map(_to_str).map(text_length).max(), text_length(df.index.name))
 		sheet.column_dimensions["A"].width = index_length * length_factor + margin
 
@@ -742,13 +735,13 @@ if __name__ == "__main__":
 	########### DATA ###########
 	DATA_FILES = [
 		## Figure 2 - Single drugs
-		'Fig 1 SH 1.171 Rapa.xlsx',
-		'Fig 1 SH 1.171 MPA.xlsx',
-		'Fig 1 SH 1.171 Dex.xlsx',
-		'Fig 1 DV23_003 CsA.xlsx',
+        'SH 1.171 Rapa.xlsx',
+        'SH 1.171 MPA.xlsx',
+        'SH 1.171 Dex.xlsx',
+        'DV23_003 CsA.xlsx',
 
 		## Supplementary Figure - Single drugs
-		'Fig 1 DV24_001 single drug OTI BimKO.xlsx',
+        'DV24_001 single drug OTI BimKO.xlsx',
 	]
 	KEYS = [os.path.splitext(os.path.basename(data_key))[0] for data_key in DATA_FILES]
 	df = parse_data('./data', DATA_FILES)
