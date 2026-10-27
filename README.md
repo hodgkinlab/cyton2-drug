@@ -25,7 +25,7 @@ root
                 ├── 2. Same Timer
                 └── 3. Complex Interaction
 ```
-Python version: 3.13.2
+Python version: 3.15.1
 
 # Installation
 To install dependencies:
@@ -49,7 +49,7 @@ There are four versions of the model fitting scripts, corresponding to the follo
 3. `fit-SameTimer.py`
 4. `fit-ComplexInter.py`
 
-Each script automatically imports the relevant dataset(s) and initiates fitting procedure using predefined configurations. It enumerates all experimental conditions (i.e. drug concentrations) within each dataset and utilises `multiprocessing` module to fit them in parallel. 
+Each script automatically imports the relevant dataset(s) and initiates fitting procedure using predefined configurations. It enumerates all experimental conditions (i.e. drug concentrations) within each dataset and utilises `multiprocessing` module to fit them in parallel.
 
 By default, each script generates:
 - Two Excel files - one containing model outputs for direct plotting in external software, and another containing a table of fitted parameters.
