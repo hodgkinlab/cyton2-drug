@@ -65,3 +65,8 @@ Three example Jupyter notebooks demonstrate how to read the modelling results fr
 3. **Complex interaction** - e.g., Cyclosporine A and Mycophenolic Acid
 
 Each notebook produces model predictions for all combinations of the provided concentrations of the two drugs.
+
+# License
+Data: CC BY-NC 4.0
+
+Code: PolyForm Noncommercial 1.0.0
